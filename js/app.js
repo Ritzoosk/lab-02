@@ -52,9 +52,9 @@ function goGet(comesBackPotato) {
     new HornedPics(hornJsonObject.image_url, hornJsonObject.title, hornJsonObject.description, hornJsonObject.keyword, hornJsonObject.horns);
   });
   console.log(HornedPics);
-   HornedPics.allHornedPics.forEach(hornPic => hornPic.renderHorn());
+  HornedPics.allHornedPics.forEach(hornPic => hornPic.renderHorn());
 
-    HornedPics.allHornedPics.forEach(hornPic => hornPic.populateDrop())
+  HornedPics.allHornedPics.forEach(hornPic => hornPic.populateDrop())
 }
 
 

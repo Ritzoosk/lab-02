@@ -1,0 +1,12 @@
+li img {
+    height: 150px;
+    width: 150px;
+    display: grid;
+    border-radius: 10px;
+    margin: auto;
+
+}
+
+li:first-child {
+    display: none;
+}
