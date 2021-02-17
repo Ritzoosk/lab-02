@@ -21,10 +21,23 @@ HornedPics.prototype.renderHorn = function(){
   $('section').append($liCopy);
 }
 
+HornedPics.prototype.populateDrop = function(){
+  const arrDrop = [];
+  HornedPics.allHornedPics.forEach(value =>{
+    if(!arrDrop.includes(`${this.keyword}`)){
+      arrDrop.push(this.keyword);
+    }
+  });
+  arrDrop.forEach(value => {
 
+    const $dropOp = $('option:first-child').clone();
 
+    $dropOp.text(this.keyword)
 
-
+    $('select').append($dropOp);
+    
+  });
+};
 
 
 
@@ -41,9 +54,14 @@ function goGet(comesBackPotato) {
   console.log(HornedPics);
    HornedPics.allHornedPics.forEach(hornPic => hornPic.renderHorn());
 
+    HornedPics.allHornedPics.forEach(hornPic => hornPic.populateDrop())
 }
 
 
-
+$('select').on('change', function(e){
+  $('li').hide();
+  console.log(e.target);
+  $('li:contains('+ e.target.value+')').show();
+})
 
 
