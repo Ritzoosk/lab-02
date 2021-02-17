@@ -31,6 +31,9 @@ HornedPics.prototype.populateDrop = function(){
   arrDrop.forEach(value => {
 
     const $dropOp = $('option:first-child').clone();
+    $dropOp.attr('value', this.keyword);
+
+    //$optionCopy.attr('value', this.keyword);
 
     $dropOp.text(this.keyword)
 
@@ -58,10 +61,25 @@ function goGet(comesBackPotato) {
 }
 
 
-$('select').on('change', function(e){
-  $('li').hide();
-  console.log(e.target);
-  $('li:contains('+ e.target.value+')').show();
-})
+$('select').on('change', handleClick);
 
+function handleClick(){
+  console.log("in the listener");
+
+  const clickedKeyword = $('select').val();
+  console.log(clickedKeyword);
+  showKeywordHideOthers(clickedKeyword);
+}
+
+function showKeywordHideOthers(keyword){
+  $('li').hide();
+  $(`li:contains(${keyword})`).show();
+
+
+}
+
+
+
+  
+  
 
