@@ -12,16 +12,9 @@ HornedPics.allHornedPics = [];
 
 
 HornedPics.prototype.renderHorn = function(){
-  const $liCopy = $('#tempLi').clone();
-  $liCopy.attr('id', "nottemp");
-  $liCopy.find('h2').text(this.title);
-  $liCopy.find('img').attr('src', this.url);
-  //console.log(this.url);
-
-  $liCopy.find('h5').text(this.description);
-  $liCopy.find('p').text(this.horns);
-  //console.log(this);
-  $('section').append($liCopy);
+  const ntPotato = $('#mustache-template-tr').html();
+  const outputFromMustache = Mustache.render(ntPotato, this);
+  return outputFromMustache;
 }
 
 HornedPics.prototype.populateDrop = function(){
@@ -59,7 +52,7 @@ function goGet(comesBackPotato) {
     new HornedPics(hornJsonObject.image_url, hornJsonObject.title, hornJsonObject.description, hornJsonObject.keyword, hornJsonObject.horns);
   });
   //console.log(HornedPics);
-  HornedPics.allHornedPics.forEach(hornPic => hornPic.renderHorn());
+  HornedPics.allHornedPics.forEach(hornPic => $('section').append(hornPic.renderHorn()));
 
   HornedPics.allHornedPics.forEach(hornPic => hornPic.populateDrop())
 }
