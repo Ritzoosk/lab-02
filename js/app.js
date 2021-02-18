@@ -16,7 +16,7 @@ HornedPics.prototype.renderHorn = function(){
   $liCopy.attr('id', "nottemp");
   $liCopy.find('h2').text(this.title);
   $liCopy.find('img').attr('src', this.url);
-//console.log(this.url);
+  //console.log(this.url);
 
   $liCopy.find('h5').text(this.description);
   $liCopy.find('p').text(this.horns);
@@ -31,7 +31,7 @@ HornedPics.prototype.populateDrop = function(){
       arrDrop.push(this.keyword);
     }
   arrDrop.forEach(value => {
-    console.log(value);
+    // console.log(value);
 
     const $dropOp = $('#tempOp').clone();
     $dropOp.attr('value', this.keyword);
@@ -39,7 +39,7 @@ HornedPics.prototype.populateDrop = function(){
     //$optionCopy.attr('value', this.keyword);
 
     $dropOp.text(this.keyword)
-    console.log(arrDrop);
+    // console.log(arrDrop);
 
     $('select').append($dropOp);
     
@@ -82,16 +82,31 @@ function showKeywordHideOthers(keyword){
 
 
 
-$('button').on('click', pageClick);
+$('#page1').on('click', pageClick1);
 
-function pageClick(){
-  console.log("page click happened");
+function pageClick1(){
+  console.log("page1 click happened");
   $('section').empty();
   $('select').empty();
   HornedPics.allHornedPics = [];
-
+  $('#page1').toggle();
+  $('#page2').toggle();
 
   $.ajax('data/page-2.json').then (goGet);
+
+}
+
+$('#page2').on('click', pageClick2);
+
+function pageClick2(){
+  console.log("page2 click happened");
+  $('section').empty();
+  $('select').empty();
+  HornedPics.allHornedPics = [];
+  $('#page1').toggle();
+  $('#page2').toggle();
+
+  $.ajax('data/page-1.json').then (goGet);
 
 }
 
