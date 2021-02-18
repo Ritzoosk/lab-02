@@ -12,30 +12,34 @@ HornedPics.allHornedPics = [];
 
 
 HornedPics.prototype.renderHorn = function(){
-  const $liCopy = $('li:first-child').clone();
+  const $liCopy = $('#tempLi').clone();
+  $liCopy.attr('id', "nottemp");
   $liCopy.find('h2').text(this.title);
   $liCopy.find('img').attr('src', this.url);
+//console.log(this.url);
+
   $liCopy.find('h5').text(this.description);
   $liCopy.find('p').text(this.horns);
-  console.log(this);
+  //console.log(this);
   $('section').append($liCopy);
 }
 
 HornedPics.prototype.populateDrop = function(){
+ 
   const arrDrop = [];
-  HornedPics.allHornedPics.forEach(value =>{
-    if(!arrDrop.includes(`${this.keyword}`)){
+    if(arrDrop.includes(`${this.keyword}`)=== false){
       arrDrop.push(this.keyword);
     }
-  });
   arrDrop.forEach(value => {
+    console.log(value);
 
-    const $dropOp = $('option:first-child').clone();
+    const $dropOp = $('#tempOp').clone();
     $dropOp.attr('value', this.keyword);
 
     //$optionCopy.attr('value', this.keyword);
 
     $dropOp.text(this.keyword)
+    console.log(arrDrop);
 
     $('select').append($dropOp);
     
@@ -48,13 +52,13 @@ HornedPics.prototype.populateDrop = function(){
 $.ajax('data/page-1.json').then (goGet);
 
 function goGet(comesBackPotato) {
-  console.log(comesBackPotato);
+  //console.log(comesBackPotato);
 
   comesBackPotato.forEach(hornJsonObject => {
-    console.log(hornJsonObject.url);
+    //console.log(hornJsonObject.url);
     new HornedPics(hornJsonObject.image_url, hornJsonObject.title, hornJsonObject.description, hornJsonObject.keyword, hornJsonObject.horns);
   });
-  console.log(HornedPics);
+  //console.log(HornedPics);
   HornedPics.allHornedPics.forEach(hornPic => hornPic.renderHorn());
 
   HornedPics.allHornedPics.forEach(hornPic => hornPic.populateDrop())
@@ -64,19 +68,35 @@ function goGet(comesBackPotato) {
 $('select').on('change', handleClick);
 
 function handleClick(){
-  console.log("in the listener");
+  //console.log("in the listener");
 
   const clickedKeyword = $('select').val();
-  console.log(clickedKeyword);
+  //console.log(clickedKeyword);
   showKeywordHideOthers(clickedKeyword);
 }
 
 function showKeywordHideOthers(keyword){
   $('li').hide();
   $(`li:contains(${keyword})`).show();
+}
 
+
+
+$('button').on('click', pageClick);
+
+function pageClick(){
+  console.log("page click happened");
+  $('section').empty();
+  $('select').empty();
+  HornedPics.allHornedPics = [];
+
+
+  $.ajax('data/page-2.json').then (goGet);
 
 }
+
+
+
 
 
 

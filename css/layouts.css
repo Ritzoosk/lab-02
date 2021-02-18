@@ -7,6 +7,6 @@ li img {
 
 }
 
-li:first-child {
+#tempLi{
     display: none;
 }
